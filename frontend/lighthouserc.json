@@ -7,7 +7,7 @@
         "http://localhost:4173/emergency"
       ],
       "numberOfRuns": 3,
-      "startServerCommand": "npm run preview",
+      "startServerCommand": "cd frontend && npm run preview",
       "startServerReadyPattern": "Local",
       "startServerReadyTimeout": 15000
     },

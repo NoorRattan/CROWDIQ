@@ -20,8 +20,8 @@ DEFAULT_ALLOWED_ORIGINS = [
 ]
 
 
-class _OriginsPassthroughMixin:
-    """Skip eager JSON decoding for ALLOWED_ORIGINS so the validator can normalize it."""
+class CrowdIQEnvSettingsSource(EnvSettingsSource):
+    """Environment source with raw ALLOWED_ORIGINS handling."""
 
     def prepare_field_value(
         self, field_name: str, field: Any, value: Any, value_is_complex: bool
@@ -31,12 +31,15 @@ class _OriginsPassthroughMixin:
         return super().prepare_field_value(field_name, field, value, value_is_complex)
 
 
-class CrowdIQEnvSettingsSource(_OriginsPassthroughMixin, EnvSettingsSource):
-    """Environment source with raw ALLOWED_ORIGINS handling."""
-
-
-class CrowdIQDotEnvSettingsSource(_OriginsPassthroughMixin, DotEnvSettingsSource):
+class CrowdIQDotEnvSettingsSource(DotEnvSettingsSource):
     """Dotenv source with raw ALLOWED_ORIGINS handling."""
+
+    def prepare_field_value(
+        self, field_name: str, field: Any, value: Any, value_is_complex: bool
+    ) -> Any:
+        if field_name == "ALLOWED_ORIGINS":
+            return value
+        return super().prepare_field_value(field_name, field, value, value_is_complex)
 
 
 class Settings(BaseSettings):
