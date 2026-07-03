@@ -7,7 +7,11 @@ from app.firebase.firestore import update_queue_state
 
 
 def _queue_type_value(queue: Queue) -> str:
-    queue_type = queue.queue_type.value if hasattr(queue.queue_type, "value") else str(queue.queue_type)
+    queue_type = (
+        queue.queue_type.value
+        if hasattr(queue.queue_type, "value")
+        else str(queue.queue_type)
+    )
     return queue_type.lower()
 
 

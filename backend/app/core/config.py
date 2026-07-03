@@ -23,7 +23,9 @@ DEFAULT_ALLOWED_ORIGINS = [
 class _OriginsPassthroughMixin:
     """Skip eager JSON decoding for ALLOWED_ORIGINS so the validator can normalize it."""
 
-    def prepare_field_value(self, field_name: str, field: Any, value: Any, value_is_complex: bool) -> Any:
+    def prepare_field_value(
+        self, field_name: str, field: Any, value: Any, value_is_complex: bool
+    ) -> Any:
         if field_name == "ALLOWED_ORIGINS":
             return value
         return super().prepare_field_value(field_name, field, value, value_is_complex)
@@ -124,7 +126,9 @@ class Settings(BaseSettings):
                 except Exception:
                     origins = []
             else:
-                origins = [origin.strip() for origin in value.split(",") if origin.strip()]
+                origins = [
+                    origin.strip() for origin in value.split(",") if origin.strip()
+                ]
 
         for required_origin in DEFAULT_ALLOWED_ORIGINS:
             if required_origin not in origins:

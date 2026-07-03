@@ -79,7 +79,7 @@ npm install
 npm run dev
 ```
 
-Environment values should be supplied through `backend/.env` and `frontend/.env.local`.
+Environment values should be supplied through `backend/.env` and `frontend/.env.local`. Start from `backend/.env.example` and `frontend/.env.example`; never commit real Firebase or Google API keys.
 
 ## Assumptions Made
 

@@ -4,6 +4,14 @@ import * as matchers from 'vitest-axe/matchers';
 
 expect.extend(matchers);
 
+vi.stubEnv('VITE_FIREBASE_API_KEY', 'test-api-key');
+vi.stubEnv('VITE_FIREBASE_AUTH_DOMAIN', 'test.firebaseapp.com');
+vi.stubEnv('VITE_FIREBASE_PROJECT_ID', 'test-project');
+vi.stubEnv('VITE_FIREBASE_STORAGE_BUCKET', 'test-project.appspot.com');
+vi.stubEnv('VITE_FIREBASE_MESSAGING_SENDER_ID', '123456789012');
+vi.stubEnv('VITE_FIREBASE_APP_ID', '1:123456789012:web:test');
+vi.stubEnv('VITE_FIREBASE_VAPID_KEY', 'test-vapid-key');
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => key,

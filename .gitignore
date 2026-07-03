@@ -60,6 +60,7 @@ backend/firebase-service-account.json
 frontend/.env
 frontend/.env.local
 frontend/.env.*
+!frontend/.env.example
 backend/uvicorn_err.txt
 backend/uvicorn_out.txt
 backend/test_live_api_output*.txt

@@ -62,6 +62,7 @@ class SafeConfirmationRequest(BaseModel):
 
 class EmergencyStatusResponse(BaseModel):
     """Emergency status for a venue. Returned even when no emergency is active."""
+
     venue_id: str
     is_active: bool
     emergency_type: str | None = None
