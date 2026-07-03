@@ -14,19 +14,24 @@ from app.schemas.venue import RouteResponse, RouteStep
 
 logger = logging.getLogger(__name__)
 
-_gmaps = (
-    googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY, timeout=10)
-    if settings.GOOGLE_MAPS_API_KEY
-    else None
-)
+_gmaps: googlemaps.Client | None = None
 
 
 def _get_client() -> googlemaps.Client:
+    global _gmaps
     if _gmaps is None:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Google Maps API key is not configured.",
-        )
+        if not settings.GOOGLE_MAPS_API_KEY:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Google Maps API key is not configured.",
+            )
+        try:
+            _gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY, timeout=10)
+        except ValueError as exc:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Google Maps API key is invalid.",
+            ) from exc
     return _gmaps
 
 
