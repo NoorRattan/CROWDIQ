@@ -155,18 +155,19 @@ export default defineConfig(({ mode }) => {
       })
     ],
     resolve: {
-      alias: { '@': path.resolve(__dirname, './src') }
+      alias: { '@': path.resolve(import.meta.dirname, './src') }
     },
     build: {
       target: 'es2020',
       sourcemap: false,
       chunkSizeWarningLimit: 600,
-      rollupOptions: {
+      rolldownOptions: {
         output: {
-          manualChunks: {
-            vendor: ['react', 'react-dom', 'react-router-dom'],
-            firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/messaging', 'firebase/storage'],
-            maps: ['@react-google-maps/api']
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (/[/\\](react|react-dom|react-router|react-router-dom|scheduler)[/\\]/.test(id)) return 'vendor';
+            if (/[/\\](@firebase|firebase)[/\\]/.test(id)) return 'firebase';
+            if (id.includes('@react-google-maps/api')) return 'maps';
           }
         }
       }

@@ -1,7 +1,6 @@
 node_modules/
 .npm/
 .yarn/
-package-lock.json
 yarn.lock
 __pycache__/
 *.pyc
@@ -35,6 +34,7 @@ htmlcov/
 .pytest_cache/
 junit.xml
 coverage.xml
+.coverage
 backend/cors_env.yaml
 .idea/
 .vscode/

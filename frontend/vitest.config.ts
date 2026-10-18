@@ -38,8 +38,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      'jest-axe': path.resolve(__dirname, './src/test/jestAxeShim.ts'),
+      '@': path.resolve(import.meta.dirname, './src'),
+      'jest-axe': path.resolve(import.meta.dirname, './src/test/jestAxeShim.ts'),
     },
   },
 });
